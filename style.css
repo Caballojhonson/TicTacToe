@@ -1,0 +1,22 @@
+html, body {
+    margin: 0px;
+}
+#border {
+    background-color: black;
+    max-width:max-content;
+    max-height: max-content;
+    margin: 1rem;
+}
+#grid {
+    display: grid;
+    grid-template-rows: auto auto auto;
+    grid-template-columns: auto auto auto;
+    height: max-content;
+    width: max-content;
+    gap: 0.5rem;
+}
+.cell {
+    height: 10rem;
+    width: 10rem;
+    background-color: white;
+}
