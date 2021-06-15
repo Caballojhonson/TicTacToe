@@ -1,6 +1,10 @@
 html, body {
     margin: 0px;
 }
+img {
+    height: 8rem;
+    width: 8rem;
+}
 #border {
     background-color: black;
     max-width:max-content;
@@ -9,14 +13,17 @@ html, body {
 }
 #grid {
     display: grid;
-    grid-template-rows: auto auto auto;
-    grid-template-columns: auto auto auto;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     height: max-content;
     width: max-content;
     gap: 0.5rem;
 }
 .cell {
+    display: flex;
     height: 10rem;
     width: 10rem;
     background-color: white;
+    justify-content: center;
+    align-items: center;
 }
