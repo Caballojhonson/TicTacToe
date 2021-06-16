@@ -65,6 +65,7 @@ const board = (() => {
         _cellValues[cell] = symbol;
         populateCells();
         logic.getIndexes();
+        logic.evaluateGame();
     }
 
     return { render, populateCells, play, listen, copy };
@@ -118,22 +119,36 @@ const logic = (() => {
         [0, 1, 2], [3, 4, 5], [6, 7, 8],
         [0, 3, 6], [1, 4, 7], [2, 5, 8],
         [0, 4, 8], [6, 4, 2]
-        ];
+    ];
     let indexesO = [];
     let indexesX = [];
 
     const getIndexes = () => {
         for (let i = 0; i < cellValues().length; i++) {
-            if(cellValues()[i] == 'o') indexesO.push(i);
-            if(cellValues()[i] == 'x') indexesX.push(i);
+            if (cellValues()[i] == 'o') indexesO.push(i);
+            if (cellValues()[i] == 'x') indexesX.push(i);
         }
     }
 
     const evaluateGame = () => {
+        for (let i = 0; i < combinations.length; i++) {
+            if (combinations[i].every(num => indexesO.includes(num))) {
+                return 'o';
+            }
+        }
+
+        for (let i = 0; i < combinations.length; i++) {
+            if (combinations[i].every(num => indexesX.includes(num))) {
+                return 'x';
+            }
+        }
+    }
+
+    const declareWinner = () => {
         
     }
 
-    return { getIndexes, indexesO, indexesX, cellValues }
+    return { getIndexes, indexesO, indexesX, cellValues, evaluateGame }
 })();
 
 board.render()
