@@ -16,7 +16,6 @@ const board = (() => {
     const values = () => Object.values(_cellValues);
     const domCells = () => document.querySelectorAll('.cell');
     let counter = 1;
-    const copy = _cellValues;
 
     const incrementCounter = () => counter++;
 
@@ -68,7 +67,19 @@ const board = (() => {
         logic.evaluateGame();
     }
 
-    return { render, populateCells, play, listen, copy };
+    const reset = () => {
+        _cellValues = {a1: '', b1: '', c1: '', a2: '',
+            b2: '', c2: '', a3: '', b3: '', c3: ''};
+
+        for (let i = 0; i < domCells().length; i++) {
+            if(domCells()[i].firstChild) domCells()[i].removeChild(domCells()[i].firstChild);
+        }
+
+        populateCells();
+        logic.reset();
+    }
+
+    return { render, populateCells, play, listen, values, reset };
 })();
 
 const Player = who => {
@@ -114,7 +125,7 @@ const players = (() => {
 
 const logic = (() => {
 
-    const cellValues = () => Object.values(board.copy);
+    const cellValues = () => board.values();
     const combinations = [
         [0, 1, 2], [3, 4, 5], [6, 7, 8],
         [0, 3, 6], [1, 4, 7], [2, 5, 8],
@@ -122,6 +133,7 @@ const logic = (() => {
     ];
     let indexesO = [];
     let indexesX = [];
+    let winner = '';
 
     const getIndexes = () => {
         for (let i = 0; i < cellValues().length; i++) {
@@ -133,22 +145,35 @@ const logic = (() => {
     const evaluateGame = () => {
         for (let i = 0; i < combinations.length; i++) {
             if (combinations[i].every(num => indexesO.includes(num))) {
-                return 'o';
+                return declareWinner('o');
             }
         }
 
         for (let i = 0; i < combinations.length; i++) {
             if (combinations[i].every(num => indexesX.includes(num))) {
-                return 'x';
+                return declareWinner('x');
             }
         }
+
+        if (cellValues().every(i => (i === 'x' || i === 'o'))) return declareWinner('tie');
     }
 
-    const declareWinner = () => {
-        
+    const declareWinner = (symbol) => {
+        if (symbol === players.playerOne.symbol) return winner = players.playerOne.name;
+        if (symbol === players.playerTwo.symbol) return winner = players.playerTwo.name;
+        if (symbol === 'tie') return winner = 'Tie!';
     }
 
-    return { getIndexes, indexesO, indexesX, cellValues, evaluateGame }
+    const reset = () => {
+        indexesO = [];
+        indexesX = [];
+    }
+
+    return { getIndexes, evaluateGame, reset }
+})();
+
+const display = (() => {
+
 })();
 
 board.render()
