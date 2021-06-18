@@ -6,16 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TicTacToe</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Staatliches&display=swap" rel="stylesheet">
 </head>
 <body>
-
-    <form id="playerInput">
-        <label for="playerOne">Player One:</label>
-        <input id="playerOne" type="text">
-        <label for="playerTwo">Player Two:</label>
-        <input id="playerTwo" type="text">
-        <button type="button" id="startBtn" >START</button>
-    </form>
+    <div id="startScreen">
+        <form id="playerInput">
+            <label for="playerOne">Player One:</label>
+            <input id="playerOne" type="text">
+            <label for="playerTwo">Player Two:</label>
+            <input id="playerTwo" type="text">
+            <div id="startBtn">START GAME</div>
+        </form>
+    </div>
 
     <div id="border">
         <div id="grid"></div>

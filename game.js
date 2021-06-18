@@ -106,8 +106,9 @@ const players = (() => {
     let playerTwo = Player('Anonymous')
 
     startBtn.addEventListener('click', () => {
-        playerOne.name = playerOneInput.value;
-        playerTwo.name = playerTwoInput.value;
+        playerOne.name = playerOneInput.value === '' ? 'Player One' : playerOneInput.value;
+        playerTwo.name = playerTwoInput.value === '' ? 'Player Two' : playerTwoInput.value;
+        display.hideStartScreen();
     })
 
     function assignSymbol() {
@@ -159,6 +160,7 @@ const logic = (() => {
     }
 
     const declareWinner = (symbol) => {
+        setTimeout(board.reset(), 3000);
         if (symbol === players.playerOne.symbol) return winner = players.playerOne.name;
         if (symbol === players.playerTwo.symbol) return winner = players.playerTwo.name;
         if (symbol === 'tie') return winner = 'Tie!';
@@ -173,6 +175,13 @@ const logic = (() => {
 })();
 
 const display = (() => {
+
+    const hideStartScreen = () => {
+        const startScreen = document.getElementById('startScreen');
+        startScreen.style.display = 'none';
+    }
+
+    return { hideStartScreen }
 
 })();
 
