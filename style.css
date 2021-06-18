@@ -6,6 +6,11 @@
     from {background-color: transparent;}
     to {background-color: rgb(64, 66, 75);}
 }
+@keyframes fadeOut {
+    0% {background-color: rgb(64, 66, 75);}
+    60% {background-color: rgb(64, 66, 75);}
+    100% {background-color: transparent;}
+}
 html, body {
     display: flex;
     justify-content: center;
@@ -44,6 +49,12 @@ input, input:focus {
     z-index: 999;
     background-color: rgb(64, 66, 75);
 }
+#tictactoe {
+    position: relative ;
+    font-family: var(--titleFont);
+    font-size: 3rem;
+    bottom: 35%;
+}
 #playerInput {
     position: fixed;
     display: flex;
@@ -54,8 +65,9 @@ input, input:focus {
     align-self: center;
     width: 75%;
     max-width: 25rem;
+    top: 30%
 }
-#startBtn {
+#startBtn, .btn {
     text-align: center;
     vertical-align: middle;
     line-height: 2.5rem;
@@ -65,7 +77,7 @@ input, input:focus {
     background-color: lightgreen;
     font-family: var(--titleFont);
     cursor: pointer;
-    margin-top: 1.5rem;
+    margin-top: 2.5rem;
     border-radius: 0.5rem;
 }
 #border {
@@ -99,8 +111,16 @@ input, input:focus {
 }
 #winner {
     font-family: var(--titleFont);
-    font-size:3rem;
+    font-size:2rem;
     letter-spacing: 0.2rem;
+}
+#restartBtn {
+    max-width: 15rem;
+    background-color: tomato;
+}
+#symbolScreen {
+    animation-name: fadeOut;
+    animation-duration: 4s;
 }
 
 @media screen and (min-width: 550px) {

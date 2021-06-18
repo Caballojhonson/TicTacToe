@@ -19,6 +19,8 @@ const board = (() => {
 
     const incrementCounter = () => counter++;
 
+    const readCounter = () => counter;
+
     const listen = () => {
         grid.addEventListener('click', (event) => {
             if (event.target.parentNode.classList == 'cell') {
@@ -79,7 +81,7 @@ const board = (() => {
         logic.reset();
     }
 
-    return { render, populateCells, play, listen, values, reset };
+    return { render, populateCells, play, listen, values, reset, readCounter };
 })();
 
 const Player = who => {
@@ -109,6 +111,7 @@ const players = (() => {
         playerOne.name = playerOneInput.value === '' ? 'Player One' : playerOneInput.value;
         playerTwo.name = playerTwoInput.value === '' ? 'Player Two' : playerTwoInput.value;
         display.hideStartScreen();
+        display.populateSymbolScreen();
     })
 
     function assignSymbol() {
@@ -134,7 +137,6 @@ const logic = (() => {
     ];
     let indexesO = [];
     let indexesX = [];
-    let winner = '';
 
     const getIndexes = () => {
         for (let i = 0; i < cellValues().length; i++) {
@@ -172,7 +174,7 @@ const logic = (() => {
         indexesX = [];
     }
 
-    return { getIndexes, evaluateGame, reset, winner }
+    return { getIndexes, evaluateGame, reset }
 })();
 
 const display = (() => {
@@ -183,27 +185,67 @@ const display = (() => {
     }
 
     const populateSymbolScreen = () => {
-        // const symbolScreen = document.getElementById('symbolScreen');
-        const pOneSymbol = document.getElementById('symbolOne');
-        const pTwoSymbol = document.getElementById('symbolTwo');
+        const symbolInputOne = document.getElementById('symbolOne');
+        const symbolInputTwo = document.getElementById('symbolTwo');
+        const starts = document.getElementById('starts');
 
-        pOneSymbol.textContent = (players.playerOne.name + ' starts as ' players.playerOne.symbol);
+        
+        if (players.playerOne.symbol === 'x' && board.readCounter() === 1) {
+            starts.textContent = players.playerOne.name + ' Starts';
+        }else if (players.playerOne.symbol === 'o' && board.readCounter() === 1) {
+            starts.textContent = players.playerTwo.name + ' Starts';
+        }else if (board.readCounter() % 2 === 0 && players.playerOne.symbol === 'o') {
+            starts.textContent = players.playerOne.name + ' Starts';
+        }else if (board.readCounter() % 2 === 0 && players.playerTwo.symbol === 'o') {
+            starts.textContent = players.playerTwo.name + ' Starts';
+        }else if (board.readCounter() % 2 !== 0 && players.playerOne.symbol === 'x') {
+            starts.textContent = players.playerOne.name + ' Starts';
+        }else if (board.readCounter() % 2 !== 0 && players.playerTwo.symbol === 'x') {
+            starts.textContent = players.playerTwo.name + ' Starts';
+        }
+
+        symbolInputOne.textContent = (players.playerOne.name + ' plays as ' + players.playerOne.symbol.toUpperCase());
+        symbolInputTwo.textContent = (players.playerTwo.name + ' plays as ' + players.playerTwo.symbol.toUpperCase());
+
+        setTimeout(() => hideSymbolScreen(), 3000)
+    }
+
+    const hideSymbolScreen = () => {
+        const symbolScreen = document.getElementById('symbolScreen');
+        symbolScreen.style.display = 'none';
+    }
+
+    const showSymbolScreen = () => {
+        const symbolScreen = document.getElementById('symbolScreen');
+        symbolScreen.style.display = 'flex';
+        setTimeout(() => hideSymbolScreen(), 3500)
     }
 
     const showWinScreen = () => {
         const winScreen = document.getElementById('winScreen');
         winScreen.style.display = 'flex';
         printWinner();
-
     }
 
     const printWinner = (winner) => {
         const winnerTitle = document.getElementById('winner');
+        winner === 'Tie!' ? winnerTitle.textContent = 'It\'s a tie!' :
         winnerTitle.textContent = winner + ' ' + 'Wins!'
     }
 
+    const hideWinScreen = () => {
+        document.getElementById('winScreen').style.display = 'none';
+    }
 
-    return { hideStartScreen, showWinScreen, printWinner }
+    // Restart Game on RestartBtn click
+    document.getElementById('restartBtn').addEventListener('click', () => {
+        board.reset();
+        populateSymbolScreen();
+        showSymbolScreen();
+        hideWinScreen();
+    })
+
+    return { hideStartScreen, showWinScreen, printWinner, populateSymbolScreen }
 
 })();
 
