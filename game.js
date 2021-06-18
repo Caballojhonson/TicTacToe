@@ -112,6 +112,7 @@ const players = (() => {
         playerTwo.name = playerTwoInput.value === '' ? 'Player Two' : playerTwoInput.value;
         display.hideStartScreen();
         display.populateSymbolScreen();
+        display.score();
     })
 
     function assignSymbol() {
@@ -122,7 +123,7 @@ const players = (() => {
         }
     }
 
-    assignSymbol()
+    assignSymbol();
 
     return { playerOne, playerTwo }
 })();
@@ -272,4 +273,3 @@ const display = (() => {
 board.render()
 board.populateCells()
 board.listen()
-setTimeout(() => display.score(), 2500)
