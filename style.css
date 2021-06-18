@@ -2,19 +2,37 @@
     --titleFont: 'Staatliches', cursive;
     --bodyFont: 'Montserrat', sans-serif;
 }
-
+@keyframes fadeIn {
+    from {background-color: transparent;}
+    to {background-color: rgb(64, 66, 75);}
+}
 html, body {
     display: flex;
     justify-content: center;
     align-content: center;
     height: 100%;
     margin: 0px;
+    font-family: var(--bodyFont);
 }
 img {
     height: 80%;
     width: 80%;
 }
-#startScreen {
+label {
+    width:100%;
+    text-align: center;
+    padding: 1rem 0rem 0.5rem 0rem;
+}
+input, input:focus {
+    border-radius: 0.3rem;
+    border: none;
+    outline: none;
+    background-color: rgb(231, 230, 245);
+    text-align: center;
+    width: 85%;
+    height: 1.5rem;
+}
+#startScreen, .greyScreen {
     position: fixed;
     display:flex;
     flex-direction: column;
@@ -34,17 +52,21 @@ img {
     flex-wrap: wrap;
     justify-content: center;
     align-self: center;
-    max-width: 50%;
+    width: 75%;
+    max-width: 25rem;
 }
 #startBtn {
     text-align: center;
     vertical-align: middle;
-    line-height: 2rem;
+    line-height: 2.5rem;
+    min-height: 2.5rem;
     min-width: 10rem;
-    height: 2rem;
+    width: 70%;
     background-color: lightgreen;
     font-family: var(--titleFont);
     cursor: pointer;
+    margin-top: 1.5rem;
+    border-radius: 0.5rem;
 }
 #border {
     position: fixed;
@@ -53,13 +75,6 @@ img {
     width: auto;
     height: auto;
     margin: 0.3rem;
-
-    /* width: 100vw;
-  position: relative;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw; */
 }
 #grid {
     display: grid;
@@ -77,6 +92,16 @@ img {
     justify-content: center;
     align-items: center;
 }
+#winScreen {
+    display: none;
+    animation-name: fadeIn;
+    animation-duration: 1s;
+}
+#winner {
+    font-family: var(--titleFont);
+    font-size:3rem;
+    letter-spacing: 0.2rem;
+}
 
 @media screen and (min-width: 550px) {
     .cell {
@@ -84,12 +109,6 @@ img {
         width: 23vw;
     }
 }
-/* @media screen and (min-width: 1100px) {
-    .cell {
-        height: 30vw;
-        width: 30vw;
-    }
-} */
 @media screen and (min-width: 1300px) {
     .cell {
         height: 14vw;

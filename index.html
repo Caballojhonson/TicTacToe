@@ -10,7 +10,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Staatliches&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div id="startScreen">
+    <div id="winScreen" class="greyScreen">
+        <h2 id="winner"></h2>
+    </div>
+
+    <div id="symbolScreen" class="greyScreen">
+        <h2 id="symbolOne"></h2>
+        <h2 id="symbolTwo"></h2>
+    </div>
+
+    <div id="startScreen" class="greyScreen">
         <form id="playerInput">
             <label for="playerOne">Player One:</label>
             <input id="playerOne" type="text">
@@ -19,6 +28,7 @@
             <div id="startBtn">START GAME</div>
         </form>
     </div>
+
 
     <div id="border">
         <div id="grid"></div>

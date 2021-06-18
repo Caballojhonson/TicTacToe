@@ -160,10 +160,11 @@ const logic = (() => {
     }
 
     const declareWinner = (symbol) => {
-        setTimeout(board.reset(), 3000);
-        if (symbol === players.playerOne.symbol) return winner = players.playerOne.name;
-        if (symbol === players.playerTwo.symbol) return winner = players.playerTwo.name;
-        if (symbol === 'tie') return winner = 'Tie!';
+        display.showWinScreen();
+        setTimeout(() => board.reset(), 1000)
+        if (symbol === players.playerOne.symbol) return display.printWinner(players.playerOne.name);
+        if (symbol === players.playerTwo.symbol) return display.printWinner(players.playerTwo.name);
+        if (symbol === 'tie') return display.printWinner('Tie!');
     }
 
     const reset = () => {
@@ -171,7 +172,7 @@ const logic = (() => {
         indexesX = [];
     }
 
-    return { getIndexes, evaluateGame, reset }
+    return { getIndexes, evaluateGame, reset, winner }
 })();
 
 const display = (() => {
@@ -181,7 +182,28 @@ const display = (() => {
         startScreen.style.display = 'none';
     }
 
-    return { hideStartScreen }
+    const populateSymbolScreen = () => {
+        // const symbolScreen = document.getElementById('symbolScreen');
+        const pOneSymbol = document.getElementById('symbolOne');
+        const pTwoSymbol = document.getElementById('symbolTwo');
+
+        pOneSymbol.textContent = (players.playerOne.name + ' starts as ' players.playerOne.symbol);
+    }
+
+    const showWinScreen = () => {
+        const winScreen = document.getElementById('winScreen');
+        winScreen.style.display = 'flex';
+        printWinner();
+
+    }
+
+    const printWinner = (winner) => {
+        const winnerTitle = document.getElementById('winner');
+        winnerTitle.textContent = winner + ' ' + 'Wins!'
+    }
+
+
+    return { hideStartScreen, showWinScreen, printWinner }
 
 })();
 
