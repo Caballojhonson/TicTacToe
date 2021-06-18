@@ -37,6 +37,9 @@ input, input:focus {
     width: 85%;
     height: 1.5rem;
 }
+h5 {
+    text-align: center;
+}
 #startScreen, .greyScreen {
     position: fixed;
     display:flex;
@@ -121,6 +124,16 @@ input, input:focus {
 #symbolScreen {
     animation-name: fadeOut;
     animation-duration: 4s;
+}
+#scoringContainer {
+    display: flex;
+    width: 70vw;
+    justify-content: space-between;
+}
+.playerScore {
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: 1.5rem 1.5rem;
 }
 
 @media screen and (min-width: 550px) {

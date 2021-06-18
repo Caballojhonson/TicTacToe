@@ -137,6 +137,8 @@ const logic = (() => {
     ];
     let indexesO = [];
     let indexesX = [];
+    let winCountO = 0;
+    let winCountX = 0;
 
     const getIndexes = () => {
         for (let i = 0; i < cellValues().length; i++) {
@@ -148,13 +150,15 @@ const logic = (() => {
     const evaluateGame = () => {
         for (let i = 0; i < combinations.length; i++) {
             if (combinations[i].every(num => indexesO.includes(num))) {
-                return declareWinner('o');
+                 declareWinner('o');
+                 ++winCountO;
             }
         }
 
         for (let i = 0; i < combinations.length; i++) {
             if (combinations[i].every(num => indexesX.includes(num))) {
-                return declareWinner('x');
+                 declareWinner('x');
+                 ++winCountX;
             }
         }
 
@@ -174,7 +178,9 @@ const logic = (() => {
         indexesX = [];
     }
 
-    return { getIndexes, evaluateGame, reset }
+    const winCount = () => [winCountX, winCountO]
+
+    return { getIndexes, evaluateGame, reset, winCount }
 })();
 
 const display = (() => {
@@ -237,18 +243,33 @@ const display = (() => {
         document.getElementById('winScreen').style.display = 'none';
     }
 
+    const score = () => {
+        nameOne = document.getElementById('pOneName');
+        nameTwo = document.getElementById('pTwoName');
+        scoreOne = document.getElementById('pOneScore');
+        scoreTwo = document.getElementById('pTwoScore');
+
+        nameOne.textContent = players.playerOne.name;
+        nameTwo.textContent = players.playerTwo.name;
+        scoreOne.textContent = logic.winCount()[0];
+        scoreTwo.textContent = logic.winCount()[1];
+
+    }
+
     // Restart Game on RestartBtn click
     document.getElementById('restartBtn').addEventListener('click', () => {
         board.reset();
         populateSymbolScreen();
         showSymbolScreen();
+        score();
         hideWinScreen();
     })
 
-    return { hideStartScreen, showWinScreen, printWinner, populateSymbolScreen }
+    return { hideStartScreen, showWinScreen, printWinner, populateSymbolScreen, score }
 
 })();
 
 board.render()
 board.populateCells()
 board.listen()
+setTimeout(() => display.score(), 2500)

@@ -25,14 +25,22 @@
         <h1 id="tictactoe">TicTacToe!</h1>
         <form id="playerInput">
             <label for="playerOne">Player One:</label>
-            <input id="playerOne" type="text" autocomplete="off">
+            <input id="playerOne" type="text" autocomplete="off" maxlength="10">
             <label for="playerTwo">Player Two:</label>
-            <input id="playerTwo" type="text" autocomplete="off">
+            <input id="playerTwo" type="text" autocomplete="off" maxlength="10 ">
             <div id="startBtn">START GAME</div>
         </form>
     </div>
-
-
+    <div id="scoringContainer">
+        <div class="playerScore">
+           <h5 id="pOneName"></h5> 
+           <h5 id="pOneScore"></h5>
+        </div>
+        <div class="playerScore">
+            <h5 id="pTwoName"></h5>
+            <h5 id="pTwoScore"></h5>
+        </div>
+    </div>
     <div id="border">
         <div id="grid"></div>
     </div>
