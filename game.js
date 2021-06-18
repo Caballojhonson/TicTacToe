@@ -70,11 +70,13 @@ const board = (() => {
     }
 
     const reset = () => {
-        _cellValues = {a1: '', b1: '', c1: '', a2: '',
-            b2: '', c2: '', a3: '', b3: '', c3: ''};
+        _cellValues = {
+            a1: '', b1: '', c1: '', a2: '',
+            b2: '', c2: '', a3: '', b3: '', c3: ''
+        };
 
         for (let i = 0; i < domCells().length; i++) {
-            if(domCells()[i].firstChild) domCells()[i].removeChild(domCells()[i].firstChild);
+            if (domCells()[i].firstChild) domCells()[i].removeChild(domCells()[i].firstChild);
         }
 
         populateCells();
@@ -151,17 +153,17 @@ const logic = (() => {
     const evaluateGame = () => {
         for (let i = 0; i < combinations.length; i++) {
             if (combinations[i].every(num => indexesO.includes(num))) {
-                 declareWinner('o');
-                 ++winCountO;
-                 return;
+                declareWinner('o');
+                ++winCountO;
+                return;
             }
         }
 
         for (let i = 0; i < combinations.length; i++) {
             if (combinations[i].every(num => indexesX.includes(num))) {
-                 declareWinner('x');
-                 ++winCountX;
-                 return;
+                declareWinner('x');
+                ++winCountX;
+                return;
             }
         }
 
@@ -198,18 +200,18 @@ const display = (() => {
         const symbolInputTwo = document.getElementById('symbolTwo');
         const starts = document.getElementById('starts');
 
-        
+
         if (players.playerOne.symbol === 'x' && board.readCounter() === 1) {
             starts.textContent = players.playerOne.name + ' Starts';
-        }else if (players.playerOne.symbol === 'o' && board.readCounter() === 1) {
+        } else if (players.playerOne.symbol === 'o' && board.readCounter() === 1) {
             starts.textContent = players.playerTwo.name + ' Starts';
-        }else if (board.readCounter() % 2 === 0 && players.playerOne.symbol === 'o') {
+        } else if (board.readCounter() % 2 === 0 && players.playerOne.symbol === 'o') {
             starts.textContent = players.playerOne.name + ' Starts';
-        }else if (board.readCounter() % 2 === 0 && players.playerTwo.symbol === 'o') {
+        } else if (board.readCounter() % 2 === 0 && players.playerTwo.symbol === 'o') {
             starts.textContent = players.playerTwo.name + ' Starts';
-        }else if (board.readCounter() % 2 !== 0 && players.playerOne.symbol === 'x') {
+        } else if (board.readCounter() % 2 !== 0 && players.playerOne.symbol === 'x') {
             starts.textContent = players.playerOne.name + ' Starts';
-        }else if (board.readCounter() % 2 !== 0 && players.playerTwo.symbol === 'x') {
+        } else if (board.readCounter() % 2 !== 0 && players.playerTwo.symbol === 'x') {
             starts.textContent = players.playerTwo.name + ' Starts';
         }
 
@@ -239,7 +241,7 @@ const display = (() => {
     const printWinner = (winner) => {
         const winnerTitle = document.getElementById('winner');
         winner === 'Tie!' ? winnerTitle.textContent = 'It\'s a tie!' :
-        winnerTitle.textContent = winner + ' ' + 'Wins!'
+            winnerTitle.textContent = winner + ' ' + 'Wins!'
     }
 
     const hideWinScreen = () => {
@@ -254,8 +256,13 @@ const display = (() => {
 
         nameOne.textContent = players.playerOne.name;
         nameTwo.textContent = players.playerTwo.name;
-        scoreOne.textContent = logic.winCount()[0];
-        scoreTwo.textContent = logic.winCount()[1];
+        if (players.playerOne.symbol === 'x') {
+            scoreOne.textContent = logic.winCount()[0];
+            scoreTwo.textContent = logic.winCount()[1];
+        } else if (players.playerOne.symbol === 'o') {
+            scoreOne.textContent = logic.winCount()[1];
+            scoreTwo.textContent = logic.winCount()[0];
+        }
 
     }
 
