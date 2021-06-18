@@ -18,6 +18,7 @@ html, body {
     height: 100%;
     margin: 0px;
     font-family: var(--bodyFont);
+    background-color: beige;
 }
 img {
     height: 80%;
@@ -103,7 +104,7 @@ h5 {
     display: flex;
     height: 30vw;
     width: 30vw;
-    background-color: white;
+    background-color: beige;
     justify-content: center;
     align-items: center;
 }

@@ -153,6 +153,7 @@ const logic = (() => {
             if (combinations[i].every(num => indexesO.includes(num))) {
                  declareWinner('o');
                  ++winCountO;
+                 return;
             }
         }
 
@@ -160,6 +161,7 @@ const logic = (() => {
             if (combinations[i].every(num => indexesX.includes(num))) {
                  declareWinner('x');
                  ++winCountX;
+                 return;
             }
         }
 
