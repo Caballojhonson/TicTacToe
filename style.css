@@ -59,6 +59,13 @@ h5 {
     font-size: 3rem;
     bottom: 35%;
 }
+#description {
+    position: relative ;
+    text-align: center;
+    font-family: var(--bodyFont);
+    font-size: 0.6rem;
+    bottom: 35%;
+}
 #playerInput {
     position: fixed;
     display: flex;
@@ -147,6 +154,13 @@ h5 {
     .cell {
         height: 14vw;
         width: 14vw;
+    }
+    #description {
+        position: relative ;
+        text-align: center;
+        font-family: var(--bodyFont);
+        font-size: 1rem;
+        bottom: 35%;
     }
 }
 @media screen and (min-width: 2100px) {
